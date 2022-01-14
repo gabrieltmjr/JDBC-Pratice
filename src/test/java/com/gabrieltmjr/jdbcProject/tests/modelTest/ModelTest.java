@@ -28,4 +28,25 @@ public class ModelTest {
     public void equalsTest() {
         Assertions.assertEquals(person, new Person(person.getIdNumber(), person.getName(), person.getAge()));
     }
+
+    @Test
+    public void settersTest() {
+        byte age = 23;
+        String name = "Luis";
+        int idNumber = 1;
+
+        Assertions.assertEquals(18, person.getAge());
+        person.setAge(age);
+        Assertions.assertEquals(23, person.getAge());
+
+
+        Assertions.assertEquals("Manuel",person.getName());
+        person.setName(name);
+        Assertions.assertEquals("Luis",person.getName());
+
+
+        Assertions.assertEquals(0,person.getIdNumber());
+        person.setIdNumber(idNumber);
+        Assertions.assertEquals(1,person.getIdNumber());
+    }
 }
