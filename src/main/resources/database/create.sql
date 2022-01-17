@@ -1,7 +1,7 @@
 .headers on
 .mode columns
 
-DROP TABLE IF EXISTS Person;
+DROP TABLE if EXISTS Person;
 
 CREATE TABLE Person (
     idNumber INTEGER NOT NULL PRIMARY KEY,
