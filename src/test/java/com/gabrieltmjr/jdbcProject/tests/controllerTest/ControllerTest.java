@@ -72,6 +72,19 @@ public class ControllerTest {
 
     @Test
     public void deletePersonTest() {
-
+        boolean passed = true;
+        try {
+            personController.readAllPeople();
+            Person person = personController.getPeople().get(1);
+            personController.deletePerson(person);
+            personController.readAllPeople();
+        } catch (SQLException s) {
+            passed = false;
+            System.out.println(s.getMessage());
+        }
+        Assertions.assertEquals(2,personController.getPeople().size());
+        Assertions.assertEquals(0,personController.getPeople().get(0).getIdNumber());
+        Assertions.assertEquals(2,personController.getPeople().get(1).getIdNumber());
+        Assertions.assertTrue(passed);
     }
 }
