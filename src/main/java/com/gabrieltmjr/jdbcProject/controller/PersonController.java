@@ -25,18 +25,6 @@ public class PersonController {
         connection = DriverManager.getConnection(url);
     }
     //Read from database
-    public void checkAllPeople() throws SQLException {
-        int idNumber; String name; byte age;
-        Statement selectAll = connection.createStatement();
-        ResultSet all = selectAll.executeQuery("SELECT * FROM Person");
-        while (all.next()) {
-            idNumber = (Integer) all.getObject(1);
-            name = (String) all.getObject(2);
-            age = ((Integer) all.getObject(3)).byteValue();
-            System.out.println(idNumber+" "+name+" "+age);
-        }
-    }
-
     public void readAllPeople() throws SQLException {
         people = new Vector<>();
         Person person; String name;
