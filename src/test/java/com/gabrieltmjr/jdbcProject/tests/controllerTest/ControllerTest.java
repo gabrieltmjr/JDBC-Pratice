@@ -11,11 +11,10 @@ import java.util.Vector;
 public class ControllerTest {
 
     PersonController personController;
-    Vector<Person> people;
 
     @BeforeEach
     public void testConnectionToDatabase() {
-        personController = new PersonController(people);
+        personController = new PersonController();
         Assertions.assertNotEquals(null,personController.getConnection());
     }
 
@@ -24,7 +23,7 @@ public class ControllerTest {
         boolean passed = true;
         Person person = new Person(2,"Therry",(byte)26);
         try {
-            personController.insertPerson(person,people);
+            personController.insertPerson(person);
         } catch (SQLException s) {
             passed = false;
             System.out.println(s.getMessage());
@@ -37,7 +36,7 @@ public class ControllerTest {
     public void checkAllTest(){
         boolean passed = true;
         try {
-            personController.checkAllData();
+            personController.readAllPeople();
         } catch (SQLException s) {
             passed = false;
             System.out.println(s.getMessage());
@@ -49,5 +48,30 @@ public class ControllerTest {
         Assertions.assertEquals(2, personController.getPeople().elementAt(2).getIdNumber());
 
         Assertions.assertTrue(passed);
+    }
+
+    @Test
+    public void updatePersonTest() {
+        boolean passed = true;
+        try {
+            personController.readAllPeople();
+            Person person = personController.getPeople().get(1);
+            person.setName("Chris");
+            person.setAge((byte) 15);
+            personController.updatePerson(person);
+            personController.readAllPeople();
+            Assertions.assertEquals("Chris",personController.getPeople().get(1).getName());
+            Assertions.assertEquals(15,personController.getPeople().get(1).getAge());
+        } catch (SQLException s) {
+            passed = false;
+            System.out.println(s.getMessage());
+        }
+
+        Assertions.assertTrue(passed);
+    }
+
+    @Test
+    public void deletePersonTest() {
+
     }
 }
