@@ -38,7 +38,17 @@ public class PersonController {
     }
 
     public void readAllPeople() throws SQLException {
-
+        Person person; String name;
+        int idNumber; byte age;
+        Statement selectAll = connection.createStatement();
+        ResultSet all = selectAll.executeQuery("SELECT * FROM Person");
+        while (all.next()) {
+            idNumber = (Integer) all.getObject(1);
+            name = (String) all.getObject(2);
+            age = ((Integer) all.getObject(3)).byteValue();
+            person = new Person(idNumber,name,age);
+            people.add(person);
+        }
     }
     //Insert into database
     public void insertPerson(Person person) throws SQLException {
@@ -50,7 +60,11 @@ public class PersonController {
     }
     //Update to database
     public void updatePerson(Person person) throws SQLException {
-
+        PreparedStatement statement = connection.prepareStatement("UPDATE Person SET name = ?, age = ? WHERE idNumber = ?");
+        statement.setString(1,person.getName());
+        statement.setByte(2,person.getAge());
+        statement.setInt(3, person.getIdNumber());
+        statement.executeUpdate();
     }
 
     //Delete from database
