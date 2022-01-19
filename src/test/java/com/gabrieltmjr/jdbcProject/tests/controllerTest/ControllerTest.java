@@ -43,6 +43,11 @@ public class ControllerTest {
             System.out.println(s.getMessage());
         }
 
+        Assertions.assertEquals(3,personController.getPeople().size());
+        Assertions.assertEquals(0,personController.getPeople().elementAt(0).getIdNumber());
+        Assertions.assertEquals(1,personController.getPeople().elementAt(1).getIdNumber());
+        Assertions.assertEquals(2, personController.getPeople().elementAt(2).getIdNumber());
+
         Assertions.assertTrue(passed);
     }
 }
