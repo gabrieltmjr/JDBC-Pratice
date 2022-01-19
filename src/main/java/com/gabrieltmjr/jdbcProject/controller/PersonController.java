@@ -9,10 +9,10 @@ public class PersonController {
     Connection connection;
     Vector<Person> people;
 
-    public PersonController(Vector<Person> people) {
+    public PersonController() {
+        people = new Vector<>();
         try {
             connectToDatabase();
-            this.people = people;
         } catch (SQLException s) {
             System.out.println(s.getMessage());
         }
@@ -25,18 +25,23 @@ public class PersonController {
         connection = DriverManager.getConnection(url);
     }
     //Read from database
-    public void checkAllData() throws SQLException {
+    public void checkAllPeople() throws SQLException {
+        int idNumber; String name; byte age;
         Statement selectAll = connection.createStatement();
         ResultSet all = selectAll.executeQuery("SELECT * FROM Person");
         while (all.next()) {
-            int numColumns = all.getMetaData().getColumnCount();
-            for(int i = 1; i <= numColumns; i++) {
-                System.out.println("COLUMN"+i+"="+all.getObject(i));
-            }
+            idNumber = (Integer) all.getObject(1);
+            name = (String) all.getObject(2);
+            age = ((Integer) all.getObject(3)).byteValue();
+            System.out.println(idNumber+" "+name+" "+age);
         }
     }
+
+    public void readAllPeople() throws SQLException {
+
+    }
     //Insert into database
-    public void insertPerson(Person person, Vector<Person> people) throws SQLException {
+    public void insertPerson(Person person) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Person VALUES(?,?,?)");
         statement.setInt(1,person.getIdNumber());
         statement.setString(2,person.getName());
@@ -44,8 +49,16 @@ public class PersonController {
         statement.executeUpdate();
     }
     //Update to database
+    public void updatePerson(Person person) throws SQLException {
+
+    }
+
     //Delete from database
 
+
+    public Vector<Person> getPeople() {
+        return people;
+    }
 
     public Connection getConnection() {
         return connection;
