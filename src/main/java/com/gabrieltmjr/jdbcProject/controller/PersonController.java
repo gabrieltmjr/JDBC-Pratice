@@ -68,7 +68,9 @@ public class PersonController {
     }
 
     //Delete from database
+    public void deletePerson(Person person) {
 
+    }
 
     public Vector<Person> getPeople() {
         return people;
