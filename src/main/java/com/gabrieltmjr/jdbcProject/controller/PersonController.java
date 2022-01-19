@@ -38,6 +38,7 @@ public class PersonController {
     }
 
     public void readAllPeople() throws SQLException {
+        people = new Vector<>();
         Person person; String name;
         int idNumber; byte age;
         Statement selectAll = connection.createStatement();
@@ -68,8 +69,10 @@ public class PersonController {
     }
 
     //Delete from database
-    public void deletePerson(Person person) {
-
+    public void deletePerson(Person person) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Person WHERE idNumber = ?");
+        statement.setInt(1,person.getIdNumber());
+        statement.executeUpdate();
     }
 
     public Vector<Person> getPeople() {
