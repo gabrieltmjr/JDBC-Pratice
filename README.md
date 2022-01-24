@@ -1,4 +1,5 @@
-#JDBC-Project
+# JDBC-Project
 
 <p>This project was created with the purpose to have a hands-on experience the
-JBDC package, more specifically java.sql, with a basic project.</p>
+<b>JBDC package</b>, java.sql, with a basic project with only
+one object: <b>Person</b>.</p>
