@@ -118,3 +118,5 @@ VALUES
   (98,"Silas",2),
   (99,"Ivan",50),
   (100,"Stone",35);
+
+INSERT INTO Person VALUES(150,"Jovem",25,readfile("picture.jpg"))

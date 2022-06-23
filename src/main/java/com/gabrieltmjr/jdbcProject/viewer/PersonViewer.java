@@ -1,5 +1,8 @@
 package com.gabrieltmjr.jdbcProject.viewer;
 
+import com.gabrieltmjr.jdbcProject.controller.image.ManageImage;
+
+import javax.swing.*;
 import java.sql.*;
 
 public class PersonViewer {
@@ -40,6 +43,15 @@ public class PersonViewer {
         while (resultSet.next()) {
             System.out.println(resultSet.getObject(1)+"    "+resultSet.getObject(2)+"    "+resultSet.getObject(3));
         }
+    }
+
+    public void viewPersonImage(int idNumber) throws SQLException {
+        statement = connection.prepareStatement("SELECT * FROM Person WHERE idNumber = ?");
+        statement.setInt(1,idNumber);
+        resultSet = statement.executeQuery();
+        byte[] blobImage = resultSet.getBytes(4);
+        ImageIcon profilePicture = new ManageImage(blobImage).blobToImageIcon();
+        new ImageViewer(profilePicture);
     }
 
     public void viewByAgeLessThan(int age) throws SQLException {
